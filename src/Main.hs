@@ -41,6 +41,9 @@ toLogEntry t =
 isValidLine :: T.Text -> Bool
 isValidLine = T.isInfixOf (T.pack "/us ")
 
+forDisplay :: LogEntry -> (UTCTime, T.Text, Int)
+forDisplay e = (date e, T.concat [rqmethod e, (T.pack " "), url e, (T.pack " "), query e], status e) 
+
 main :: IO ()
 main = do
     ls <- fmap T.lines (T.readFile "logs/sml.log")
@@ -49,4 +52,4 @@ main = do
         entries = map toLogEntry arrays
     --let output = T.unlines entries
     --T.writeFile "E:/Src/haskell/test.log" output
-    print entries
+    mapM_ print (map forDisplay entries)
