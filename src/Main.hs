@@ -41,8 +41,8 @@ toLogEntry t =
 isValidLine :: T.Text -> Bool
 isValidLine = T.isInfixOf (T.pack "/us ")
 
-forDisplay :: LogEntry -> (UTCTime, T.Text, Int)
-forDisplay e = (date e, T.concat [rqmethod e, (T.pack " "), url e, (T.pack " "), query e], status e) 
+forDisplay :: LogEntry -> (UTCTime, Int, T.Text, T.Text)
+forDisplay e = (date e, status e, T.concat [rqmethod e, (T.pack " "), url e], query e) 
 
 main :: IO ()
 main = do
